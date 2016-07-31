@@ -9,7 +9,7 @@ $ chmod +x /path/to/QtNaCl.sh
 $ /path/to/QtNaCl.sh
 ```
 
-If everything goes well, in the folder from where you launched the script, will have these folders :
+If everything goes well, the folder, from where you launched the script, will have these folders :
 - nacl_sdk  : Chrome Native Client SDK
 - Qt5.6     : Qt 5.6 source files
 - QtNaCl_56 : Compiled Qt with NaCl (containing qmake, nacldeployqt ...)
