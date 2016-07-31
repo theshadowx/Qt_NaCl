@@ -1,0 +1,48 @@
+diff --git a/tools/tools.pro b/tools/tools.pro
+index 92bbaca..0040747 100644
+--- a/tools/tools.pro
++++ b/tools/tools.pro
+@@ -1,9 +1,11 @@
+ TEMPLATE = subdirs
+
+ load(qfeatures)
+-!android|android_app {
+-    SUBDIRS += xmlpatterns
+-    !contains(QT_DISABLED_FEATURES, xmlschema) {
+-        SUBDIRS += xmlpatternsvalidator
++!nacl {
++    !android|android_app {
++        SUBDIRS += xmlpatterns
++        !contains(QT_DISABLED_FEATURES, xmlschema) {
++            SUBDIRS += xmlpatternsvalidator
++        }
+     }
+ }
+diff --git a/tools/xmlpatterns/xmlpatterns.pro b/tools/xmlpatterns/xmlpatterns.pro
+index 0f1ee4f..1172883 100644
+--- a/tools/xmlpatterns/xmlpatterns.pro
++++ b/tools/xmlpatterns/xmlpatterns.pro
+@@ -14,4 +14,4 @@ HEADERS = main.h                            \
+ load(qt_tool)
+
+ # with c++11 / __STRICT_ANSI__ mingw.org stdio.h doesn't declare e.g. _fileno
+-win32-g++*: QMAKE_CXXFLAGS_CXX11 = -std=gnu++0x
+\ No newline at end of file
++win32-g++*: QMAKE_CXXFLAGS_CXX11 = -std=gnu++0x
+diff --git a/tools/xmlpatternsvalidator/xmlpatternsvalidator.pro b/tools/xmlpatternsvalidator/xmlpatternsvalidator.pro
+index af9469f..21b1b18 100644
+--- a/tools/xmlpatternsvalidator/xmlpatternsvalidator.pro
++++ b/tools/xmlpatternsvalidator/xmlpatternsvalidator.pro
+@@ -1,6 +1,8 @@
+-QT = core xmlpatterns
++!nacl {
++  QT = core xmlpatterns
+
+-SOURCES = main.cpp
+-HEADERS = main.h
++  SOURCES = main.cpp
++  HEADERS = main.h
+
+-load(qt_tool)
++  load(qt_tool)
++}
