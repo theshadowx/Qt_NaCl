@@ -82,7 +82,8 @@ RUN git submodule update --remote qtquickcontrols && cd /opt/Qt5.6/qtquickcontro
 
 WORKDIR /opt
 
-RUN mkdir /opt/QtNaCl_56 && cd /opt/QtNaCl_56
+RUN mkdir /opt/QtNaCl_56
+WORKDIR /opt/QtNaCl_56
 RUN bash -c " NACL_SDK_ROOT=/opt/nacl_sdk/$(find /opt/nacl_sdk -maxdepth 1 -type d -printf "%f\n" | grep 'pepper')  /opt/Qt5.6/qtbase/nacl-configure linux_x86_newlib release 64 -v -release -nomake examples -nomake tests -nomake tools"
 
 # Compiling modules
