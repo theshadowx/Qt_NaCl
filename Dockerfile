@@ -58,12 +58,10 @@ WORKDIR /opt
 #******************************
 #  NaCl SDK
 #******************************
-RUN wget http://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/nacl_sdk.zip
-RUN unzip ./nacl_sdk.zip
-RUN rm nacl_sdk.zip   
-RUN nacl_sdk/naclsdk list
-
-RUN nacl_sdk/naclsdk update pepper_47
+RUN wget http://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/nacl_sdk.zip  && \
+    unzip ./nacl_sdk.zip && \
+    rm nacl_sdk.zip && \
+    nacl_sdk/naclsdk update pepper_47
 ENV NACL_SDK_ROOT=/opt/nacl_sdk/pepper_47
  
 WORKDIR /opt
