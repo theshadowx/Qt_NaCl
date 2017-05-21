@@ -1,0 +1,8 @@
+sudo: required
+dist: trusty
+
+service:
+  - docker
+
+script:
+  - docker -t qt_nacl .
