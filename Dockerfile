@@ -1,56 +1,59 @@
 FROM ubuntu:16.04
 MAINTAINER Ali Diouri <alidiouri@gmail.com>
 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 # install depdencies
-RUN apt-get update          &&  \
-    DEBIAN_FRONTEND=noninteractive apt-get -y upgrade      &&  \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y          \
-        git                     \
-        make                    \
-        build-essential         \
-        g++                     \
-        lib32gcc1               \
-        nano                    \
-        libc6-i386              \
-        python                  \
-        python2.7               \
-        unzip                   \
-        wget                    \
-        "^libxcb.*" \
-        libx11-xcb-dev \
-        libglu1-mesa-dev \
-        libxrender-dev \
-        libxi-dev \
-        libssl-dev \
-        libxcursor-dev \
-        libxcomposite-dev \
-        libxdamage-dev \
-        libxrandr-dev \
-        libfontconfig1-dev \
-        libcap-dev \
-        libbz2-dev \
-        libgcrypt11-dev \
-        libpci-dev \
-        libnss3-dev \
-        libxcursor-dev \
-        libxcomposite-dev \
-        libxdamage-dev \
-        libxrandr-dev \
-        libdrm-dev \
-        libfontconfig1-dev \
-        libxtst-dev \
-        libasound2-dev \
-        gperf \
-        libcups2-dev \
-        libpulse-dev \
-        libudev-dev \
-        libssl-dev \
-        flex \
-        bison \
-        ruby \
-        libicu-dev \
-        libxslt-dev \
-    zlib1g-dev
+RUN apt update                                          &&  \
+    DEBIAN_FRONTEND=noninteractive apt upgrade -y       &&  \
+    DEBIAN_FRONTEND=noninteractive apt install -y           \
+        git                                                 \
+        make                                                \
+        build-essential                                     \
+        g++                                                 \
+        lib32gcc1                                           \
+        nano                                                \
+        libc6-i386                                          \
+        python                                              \
+        python2.7                                           \
+        unzip                                               \
+        wget                                                \
+        "^libxcb.*"                                         \
+        libx11-xcb-dev                                      \
+        libglu1-mesa-dev                                    \
+        libxrender-dev                                      \
+        libxi-dev                                           \
+        libssl-dev                                          \
+        libxcursor-dev                                      \
+        libxcomposite-dev                                   \
+        libxdamage-dev                                      \
+        libxrandr-dev                                       \
+        libfontconfig1-dev                                  \
+        libcap-dev                                          \
+        libbz2-dev                                          \
+        libgcrypt11-dev                                     \
+        libpci-dev                                          \
+        libnss3-dev                                         \
+        libxcursor-dev                                      \
+        libxcomposite-dev                                   \
+        libxdamage-dev                                      \
+        libxrandr-dev                                       \
+        libdrm-dev                                          \
+        libfontconfig1-dev                                  \
+        libxtst-dev                                         \
+        libasound2-dev                                      \
+        gperf                                               \
+        libcups2-dev                                        \
+        libpulse-dev                                        \
+        libudev-dev                                         \
+        libssl-dev                                          \
+        flex                                                \
+        bison                                               \
+        ruby                                                \
+        libicu-dev                                          \
+        libxslt-dev                                         \
+        zlib1g-dev &&                                       \
+    apt clean
 
 # Go to opt
 WORKDIR /opt   
@@ -63,7 +66,7 @@ RUN wget http://storage.googleapis.com/nativeclient-mirror/nacl/nacl_sdk/nacl_sd
     rm nacl_sdk.zip && \
     nacl_sdk/naclsdk update pepper_47
 ENV NACL_SDK_ROOT=/opt/nacl_sdk/pepper_47
- 
+
 WORKDIR /opt
 ADD  qtxmlpatterns.patch /opt
 
@@ -98,4 +101,8 @@ ENV PATH=$PATH:/opt/QtNaCl_56/qtbase/bin:/opt/QtNaCl_56/qtbase/lib
 WORKDIR /opt/
 RUN rm /opt/qtxmlpatterns.patch
 
+WORKDIR /home/root
+
 EXPOSE 8000
+
+CMD ["/bin/bash"]
