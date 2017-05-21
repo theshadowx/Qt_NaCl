@@ -4,56 +4,56 @@ MAINTAINER Ali Diouri <alidiouri@gmail.com>
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install depdencies
-RUN apt-get update -qq                                  &&  \
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq  &&  \
-    DEBIAN_FRONTEND=noninteractive apt-get install -qq      \
-        git                                                 \
-        make                                                \
-        build-essential                                     \
-        g++                                                 \
-        lib32gcc1                                           \
-        nano                                                \
-        libc6-i386                                          \
-        python                                              \
-        python2.7                                           \
-        unzip                                               \
-        wget                                                \
-        "^libxcb.*"                                         \
-        libx11-xcb-dev                                      \
-        libglu1-mesa-dev                                    \
-        libxrender-dev                                      \
-        libxi-dev                                           \
-        libssl-dev                                          \
-        libxcursor-dev                                      \
-        libxcomposite-dev                                   \
-        libxdamage-dev                                      \
-        libxrandr-dev                                       \
-        libfontconfig1-dev                                  \
-        libcap-dev                                          \
-        libbz2-dev                                          \
-        libgcrypt11-dev                                     \
-        libpci-dev                                          \
-        libnss3-dev                                         \
-        libxcursor-dev                                      \
-        libxcomposite-dev                                   \
-        libxdamage-dev                                      \
-        libxrandr-dev                                       \
-        libdrm-dev                                          \
-        libfontconfig1-dev                                  \
-        libxtst-dev                                         \
-        libasound2-dev                                      \
-        gperf                                               \
-        libcups2-dev                                        \
-        libpulse-dev                                        \
-        libudev-dev                                         \
-        libssl-dev                                          \
-        flex                                                \
-        bison                                               \
-        ruby                                                \
-        libicu-dev                                          \
-        libxslt-dev                                         \
-        zlib1g-dev &&                                       \
-    apt clean
+RUN apt-get -qq update                                   &&  \
+    DEBIAN_FRONTEND=noninteractive apt-get -qq upgrade > _tmp   &&       \
+    DEBIAN_FRONTEND=noninteractive apt-get -qq install                   \
+        git                                                              \
+        make                                                             \
+        build-essential                                                  \
+        g++                                                              \
+        lib32gcc1                                                        \
+        nano                                                             \
+        libc6-i386                                                       \
+        python                                                           \
+        python2.7                                                        \
+        unzip                                                            \
+        wget                                                             \
+        "^libxcb.*"                                                      \
+        libx11-xcb-dev                                                   \
+        libglu1-mesa-dev                                                 \
+        libxrender-dev                                                   \
+        libxi-dev                                                        \
+        libssl-dev                                                       \
+        libxcursor-dev                                                   \
+        libxcomposite-dev                                                \
+        libxdamage-dev                                                   \
+        libxrandr-dev                                                    \
+        libfontconfig1-dev                                               \
+        libcap-dev                                                       \
+        libbz2-dev                                                       \
+        libgcrypt11-dev                                                  \
+        libpci-dev                                                       \
+        libnss3-dev                                                      \
+        libxcursor-dev                                                   \
+        libxcomposite-dev                                                \
+        libxdamage-dev                                                   \
+        libxrandr-dev                                                    \
+        libdrm-dev                                                       \
+        libfontconfig1-dev                                               \
+        libxtst-dev                                                      \
+        libasound2-dev                                                   \
+        gperf                                                            \
+        libcups2-dev                                                     \
+        libpulse-dev                                                     \
+        libudev-dev                                                      \
+        libssl-dev                                                       \
+        flex                                                             \
+        bison                                                            \
+        ruby                                                             \
+        libicu-dev                                                       \
+        libxslt-dev                                                      \
+        zlib1g-dev > _tmp &&                                             \
+    apt clean && rm _tmp
 
 # Go to opt
 WORKDIR /opt   
@@ -90,9 +90,9 @@ WORKDIR /opt/QtNaCl_56
 RUN bash -c " NACL_SDK_ROOT=/opt/nacl_sdk/$(find /opt/nacl_sdk -maxdepth 1 -type d -printf "%f\n" | grep 'pepper')  /opt/Qt5.6/qtbase/nacl-configure linux_x86_newlib release 64 -v -release -nomake examples -nomake tests -nomake tools"
 
 # Compiling modules
-RUN make module-qtbase -j6
-RUN make module-qtdeclarative -j6
-RUN make module-qtquickcontrols -j6
+RUN make module-qtbase -j6 > /home/root/module-qtbase.compile
+RUN make module-qtdeclarative -j6 > /home/root/module-qtdeclarative.compile
+RUN make module-qtquickcontrols -j6 > /home/root/module-qtquickcontrols.compile
 
 # Adding Qt to the environement variables
 ENV PATH=$PATH:/opt/QtNaCl_56/qtbase/bin:/opt/QtNaCl_56/qtbase/lib
