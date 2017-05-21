@@ -4,9 +4,9 @@ MAINTAINER Ali Diouri <alidiouri@gmail.com>
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install depdencies
-RUN apt update                                          &&  \
-    DEBIAN_FRONTEND=noninteractive apt upgrade -y       &&  \
-    DEBIAN_FRONTEND=noninteractive apt install -y           \
+RUN apt-get update -qq                                  &&  \
+    DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq  &&  \
+    DEBIAN_FRONTEND=noninteractive apt-get install -qq      \
         git                                                 \
         make                                                \
         build-essential                                     \
