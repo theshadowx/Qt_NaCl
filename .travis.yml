@@ -5,4 +5,4 @@ service:
   - docker
 
 script:
-  - docker -t qt_nacl .
+  - docker build -t qt_nacl .
