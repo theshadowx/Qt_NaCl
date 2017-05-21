@@ -90,9 +90,9 @@ WORKDIR /opt/QtNaCl_56
 RUN bash -c " NACL_SDK_ROOT=/opt/nacl_sdk/$(find /opt/nacl_sdk -maxdepth 1 -type d -printf "%f\n" | grep 'pepper')  /opt/Qt5.6/qtbase/nacl-configure linux_x86_newlib release 64 -v -release -nomake examples -nomake tests -nomake tools"
 
 # Compiling modules
-RUN touch /home/root/module-qtbase.compile && make module-qtbase -j6 > /home/root/module-qtbase.compile
-RUN touch /home/root/module-qtdeclarative.compile && make module-qtdeclarative -j6 > /home/root/module-qtdeclarative.compile
-RUN touch /home/root/module-qtquickcontrols.compile && make module-qtquickcontrols -j6 > /home/root/module-qtquickcontrols.compile
+RUN make module-qtbase -j6 > /root/module-qtbase.compile
+RUN make module-qtdeclarative -j6 > /root/module-qtdeclarative.compile
+RUN make module-qtquickcontrols -j6 > /root/module-qtquickcontrols.compile
 
 # Adding Qt to the environement variables
 ENV PATH=$PATH:/opt/QtNaCl_56/qtbase/bin:/opt/QtNaCl_56/qtbase/lib
