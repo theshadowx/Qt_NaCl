@@ -1,5 +1,5 @@
 # Qt NaCl 
-![travis ci status QtNaCl](https://travis-ci.org/theshadowx/Qt_NaCl.svg?branch=master)
+[![Build Status](https://travis-ci.org/theshadowx/Qt_NaCl.svg?branch=master)](https://travis-ci.org/theshadowx/Qt_NaCl)
 
 This repository is dedicated to compilation of [Qt](https://www.qt.io/) with [Chrome Native Client (NaCl)](https://developer.chrome.com/native-client). 
 You can either use Dockerfile to generate a Docker image or the script to compile the Qt in the host machine.

@@ -1,17 +1,33 @@
 sudo: required
 dist: trusty
 
+env:
+  - TYPE=DOCKER
+  - TYPE=SCRIPT
+
 service:
   - docker
 
+install:
+  - sudo apt-get -qq install
+        git
+        make
+        build-essential
+        g++
+        lib32gcc1
+        libc6-i386
+        unzip
+        wget
+        libssl-dev
+
 script:
-  - chmod +x QtNaCl.sh
-  - mkdir dockerBuild
-  - cd dockerBuild
-  - docker build -t qt_nacl ..
-  - mkdir ../scriptBuild
-  - cd ../scriptBuild
-  - ../QtNaCl.sh > scipt.log
+  - if [ "$TYPE" = "DOCKER" ]; then mkdir dockerBuild; fi
+  - if [ "$TYPE" = "DOCKER" ]; then cd dockerBuild; fi
+  - if [ "$TYPE" = "DOCKER" ]; then docker build -t qt_nacl ..; fi
+  - if [ "$TYPE" = "SCRIPT" ]; then chmod +x QtNaCl.sh; fi
+  - if [ "$TYPE" = "SCRIPT" ]; then mkdir scriptBuild; fi
+  - if [ "$TYPE" = "SCRIPT" ]; then cd scriptBuild; fi
+  - if [ "$TYPE" = "SCRIPT" ]; then ../QtNaCl.sh; fi
 
 notifications:
   email: false
