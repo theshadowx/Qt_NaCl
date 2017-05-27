@@ -5,7 +5,13 @@ service:
   - docker
 
 script:
-  - docker build -t qt_nacl .
+  - chmod +x QtNaCl.sh
+  - mkdir dockerBuild
+  - cd dockerBuild
+  - docker build -t qt_nacl ..
+  - mkdir ../scriptBuild
+  - cd ../scriptBuild
+  - ../QtNaCl.sh > scipt.log
 
 notifications:
   email: false
