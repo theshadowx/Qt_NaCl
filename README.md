@@ -79,4 +79,4 @@ Then just use it as it was mentioned in the previous section but this time inste
 
 -----
 ## N.B.
-In order you app to work with Qt+NaCl you should modify the main function, here are some examples you can reference to : https://github.com/msorvig/qt-nacl-manualtests
+In order your app to work with Qt+NaCl, you should modify the main function. Here are some examples you can reference to : https://github.com/msorvig/qt-nacl-manualtests
